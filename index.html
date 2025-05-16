@@ -2,24 +2,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Stake Flasher</title>
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; background: #f7f7f7; }
-    .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); display: inline-block; }
-    img { max-width: 200px; margin-top: 20px; }
-    .address { font-weight: bold; font-size: 16px; word-break: break-all; margin-top: 10px; }
-    .note { color: red; font-weight: bold; margin-top: 20px; }
-  </style>
+    <meta charset="UTF-8">
+    <title>Stake Flasher</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #0f172a; color: white; text-align: center; padding: 20px; }
+        .container { max-width: 400px; margin: auto; background: #1e293b; padding: 20px; border-radius: 10px; }
+        input, select, button { width: 100%; padding: 10px; margin-top: 10px; border-radius: 5px; border: none; }
+        input[type="file"] { color: white; }
+        button { background-color: green; color: white; font-weight: bold; }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Stake Flasher</h1>
-    <p>Send at least <strong>100 USDT</strong> (BEP-20) to the address below:</p>
-    <img src="public/qr.png" alt="USDT QR Code" />
-    <div class="address">0x24f551eae922e4a72b05f678626e86ee241461a0</div>
-    <div class="note">Minimum amount: 100 USDT</div>
-  </div>
+    <div class="container">
+        <h2>Stake Flasher</h2>
+        <p>Select Cryptocurrency</p>
+        <select disabled>
+            <option>USDT (BEP-20)</option>
+        </select>
+        <img src="wallet_qr.png" alt="QR Code" width="200">
+        <p style="word-wrap: break-word;">0x24f551eae922e4a72b05f678626e86ee241461a0</p>
+        <button onclick="copyAddress()">Copy Address</button>
+
+        <input type="text" placeholder="Stake ID">
+        <input type="text" placeholder="Your Wallet Address">
+        <input type="text" placeholder="Amount Sent (USD)">
+        <input type="file">
+        <button>Submit</button>
+    </div>
+
+    <script>
+        function copyAddress() {
+            navigator.clipboard.writeText("0x24f551eae922e4a72b05f678626e86ee241461a0");
+            alert("Address Copied!");
+        }
+    </script>
 </body>
 </html>
