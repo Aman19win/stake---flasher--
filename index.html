@@ -6,25 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Stake Flasher</title>
   <style>
-<script>
-  const amountInput = document.querySelector('input[placeholder="Amount Sent (USD)"]');
-  const message = document.createElement("div");
-
-  message.style.color = "lightgreen";
-  message.style.marginTop = "5px";
-  message.style.fontWeight = "bold";
-  amountInput.parentNode.appendChild(message);
-
-  amountInput.addEventListener("input", () => {
-    if (parseFloat(amountInput.value) === 100) {
-      message.textContent = "You will receive: 1000 USDT";
-    } else {
-      message.textContent = "";
-    }
-  });
-</script>
-
-    body {
+body {
       font-family: Arial, sans-serif;
       background-color: #0f172a;
       color: white;
