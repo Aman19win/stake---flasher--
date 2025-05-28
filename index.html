@@ -38,6 +38,20 @@
     .qr {
       margin: 10px 0;
     }
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #22c55e;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 10px auto;
+      display: none;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -54,18 +68,18 @@
     <div id="walletAddress" style="word-wrap: break-word; font-size: 12px;"></div>
     <button onclick="copyAddress()">Copy Address</button>
     
-    <form onsubmit="return handleSubmit(event)" enctype="multipart/form-data">
+    <form id="myForm" onsubmit="return validateForm()" enctype="multipart/form-data">
       <input type="text" placeholder="Stake ID" required>
       <input type="text" placeholder="Your Wallet Address" required>
       <input id="amount" type="number" placeholder="Amount Sent (USD)" required>
-
       <div id="usdt-msg" style="color: #22c55e; font-size: 14px; font-weight: bold;"></div>
-
       <input type="file" required>
       <button type="submit">Submit</button>
     </form>
 
+    <div id="loader" class="loader"></div>
     <p id="errorMsg" style="color: red;"></p>
+    <p id="successMsg" style="color: #22c55e; font-weight: bold;"></p>
   </div>
 
   <script>
@@ -95,25 +109,24 @@
     function validateForm() {
       const amount = parseFloat(document.getElementById("amount").value);
       const error = document.getElementById("errorMsg");
+      const loader = document.getElementById("loader");
+      const success = document.getElementById("successMsg");
+
       if (amount < 100) {
-        error.style.color = "red";
         error.textContent = "Minimum amount is 100 USDT.";
         return false;
       }
+
       error.textContent = "";
-      return true;
-    }
+      loader.style.display = "block";
+      success.textContent = "";
 
-    function handleSubmit(event) {
-      event.preventDefault();
-      const isValid = validateForm();
+      setTimeout(() => {
+        loader.style.display = "none";
+        success.textContent = "✅ Your order is processing. Please wait some time.";
+      }, 3000);
 
-      if (isValid) {
-        const error = document.getElementById("errorMsg");
-        error.style.color = "#22c55e";
-        error.textContent = "✅ Submission Successful!";
-      }
-      return false;
+      return false; // prevent actual form submission
     }
 
     const amountInput = document.getElementById("amount");
@@ -121,14 +134,14 @@
 
     amountInput.addEventListener("input", function () {
       const value = parseFloat(this.value);
-       if (!isNaN(value) && value >= 100) {
+      if (!isNaN(value) && value >= 100) {
         messageDiv.textContent = `You will receive: ${value * 10} USDT`;
       } else {
         messageDiv.textContent = "";
       }
     });
 
-    updateAddress();
+    updateAddress(); // Initial load
   </script>
 </body>
 </html>
