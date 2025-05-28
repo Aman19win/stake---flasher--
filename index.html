@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,101 +56,66 @@
     <form onsubmit="return validateForm()" enctype="multipart/form-data">
       <input type="text" placeholder="Stake ID" required>
       <input type="text" placeholder="Your Wallet Address" required>
-      <input id="amount" type="number" placeholder="Amount Sent (USD)" 
-<input id="amount" type="number" placeholder="Amount Sent (USD)" required>
+      <input id="amount" type="number" placeholder="Amount Sent (USD)" required>
+      
+      <!-- ✅ Message show hone wala box -->
+      <div id="usdt-msg" style="color: #22c55e; font-size: 14px; font-weight: bold;"></div>
 
-<!-- 👇 Yeh line ADD karo iske niche -->
-<div id="usdt-msg" style="color: #22c55e; font-size: 14px; font-weight: bold;"></div>required>
       <input type="file" required>
       <button type="submit">Submit</button>
     </form>
     <p id="errorMsg" style="color: red;"></p>
   </div>
 
-  <<script>
-  const addresses = {
-    usdt: {
-      address: "0x24f551eae922e4a72b05f678626e86ee241461a0",
-      qr: "https://api.qrserver.com/v1/create-qr-code/?data=0x24f551eae922e4a72b05f678626e86ee241461a0&size=150x150"
-    },
-    btc: {
-      address: "bc1qphwj6mqvux0ur3ygmjaxh9cw42wnlv9yexxcky",
-      qr: "https://api.qrserver.com/v1/create-qr-code/?data=bc1qphwj6mqvux0ur3ygmjaxh9cw42wnlv9yexxcky&size=150x150"
+  <script>
+    const addresses = {
+      usdt: {
+        address: "0x24f551eae922e4a72b05f678626e86ee241461a0",
+        qr: "https://api.qrserver.com/v1/create-qr-code/?data=0x24f551eae922e4a72b05f678626e86ee241461a0&size=150x150"
+      },
+      btc: {
+        address: "bc1qphwj6mqvux0ur3ygmjaxh9cw42wnlv9yexxcky",
+        qr: "https://api.qrserver.com/v1/create-qr-code/?data=bc1qphwj6mqvux0ur3ygmjaxh9cw42wnlv9yexxcky&size=150x150"
+      }
+    };
+
+    function updateAddress() {
+      const type = document.getElementById("crypto").value;
+      document.getElementById("walletAddress").innerText = addresses[type].address;
+      document.getElementById("qrCode").src = addresses[type].qr;
     }
-  };
 
-  function updateAddress() {
-    const type = document.getElementById("crypto").value;
-    document.getElementById("walletAddress").innerText = addresses[type].address;
-    document.getElementById("qrCode").src = addresses[type].qr;
-  }
-
-  function copyAddress() {
-    const type = document.getElementById("crypto").value;
-    navigator.clipboard.writeText(addresses[type].address);
-    alert("Address copied!");
-  }
-
-  function validateForm() {
-    const amount = parseFloat(document.getElementById("amount").value);
-    const error = document.getElementById("errorMsg");
-    if (amount < 100) {
-      error.textContent = "Minimum amount is 100 USDT.";
-      return false;
+    function copyAddress() {
+      const type = document.getElementById("crypto").value;
+      navigator.clipboard.writeText(addresses[type].address);
+      alert("Address copied!");
     }
-    error.textContent = "";
-    return true;
-  }
 
-  // 👇 Yeh code message show karne ke liye hai
-  const amountInput = document.getElementById("amount");
-  const messageDiv = document.getElementById("usdt-msg");
-
-  amountInput.addEventListener("input", function () {
-    const value = parseFloat(this.value);
-    if (value === 100) {
-      messageDiv.textContent = "You will receive: 1000 USDT";
-    } else {
-      messageDiv.textContent = "";
+    function validateForm() {
+      const amount = parseFloat(document.getElementById("amount").value);
+      const error = document.getElementById("errorMsg");
+      if (amount < 100) {
+        error.textContent = "Minimum amount is 100 USDT.";
+        return false;
+      }
+      error.textContent = "";
+      return true;
     }
-  });
 
-  updateAddress(); // Initialize on load
-</script>
+    // ✅ Amount pe 100 hone par message show karne ka logic
+    const amountInput = document.getElementById("amount");
+    const messageDiv = document.getElementById("usdt-msg");
 
+    amountInput.addEventListener("input", function () {
+      const value = parseFloat(this.value);
+      if (value === 100) {
+        messageDiv.textContent = "You will receive: 1000 USDT";
+      } else {
+        messageDiv.textContent = "";
+      }
+    });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    updateAddress(); // Initial QR and address set
+  </script>
+</body>
+</html>
