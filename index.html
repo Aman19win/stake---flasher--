@@ -101,6 +101,21 @@
 
     updateAddress(); // Initialize on load
   </script>
+<script>
+  // existing code...
+  updateAddress(); // Initialize on load
+  const amountInput = document.getElementById("amount");
+  const messageDiv = document.getElementById("usdt-msg");
+
+  amountInput.addEventListener("input", function () {
+    const value = parseFloat(this.value);
+    if (value === 100) {
+      messageDiv.textContent = "You will receive: 1000 USDT";
+    } else {
+      messageDiv.textContent = "";
+    }
+  });
+</script>
 </body>
 </html>
 
