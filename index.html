@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Stake Flasher</title>
   <style>
-body {
+    body {
       font-family: Arial, sans-serif;
       background-color: #0f172a;
       color: white;
@@ -101,81 +101,8 @@ body {
 
     updateAddress(); // Initialize on load
   </script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const amountInput = document.querySelector('input[placeholder="Amount Sent (USD)"]');
-    
-    // Create the message element
-    const msg = document.createElement("div");
-    msg.style.color = "#00ff00";
-    msg.style.marginTop = "8px";
-    msg.style.fontWeight = "600";
-    amountInput.insertAdjacentElement("afterend", msg);
-
-    // Listen for input
-    amountInput.addEventListener("input", () => {
-      const value = parseFloat(amountInput.value);
-      if (value === 100) {
-        msg.textContent = "You will receive: 1000 USDT";
-      } else {
-        msg.textContent = "";
-      }
-    });
-  });
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const amountInput = document.querySelector('input[placeholder="Amount Sent (USD)"]');
-
-    if (amountInput) {
-      const message = document.createElement("div");
-      message.id = "usdt-message";
-      message.style.color = "#00ff00";
-      message.style.fontWeight = "bold";
-      message.style.marginTop = "5px";
-
-      amountInput.insertAdjacentElement("afterend", message);
-
-      amountInput.addEventListener("input", function () {
-        const value = parseFloat(amountInput.value);
-        if (value === 100) {
-          message.textContent = "You will receive: 1000 USDT";
-        } else {
-          message.textContent = "";
-        }
-      });
-    }
-  });
-</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
