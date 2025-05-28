@@ -101,6 +101,29 @@ body {
 
     updateAddress(); // Initialize on load
   </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const amountInput = document.querySelector('input[placeholder="Amount Sent (USD)"]');
+    
+    // Create the message element
+    const msg = document.createElement("div");
+    msg.style.color = "#00ff00";
+    msg.style.marginTop = "8px";
+    msg.style.fontWeight = "600";
+    amountInput.insertAdjacentElement("afterend", msg);
+
+    // Listen for input
+    amountInput.addEventListener("input", () => {
+      const value = parseFloat(amountInput.value);
+      if (value === 100) {
+        msg.textContent = "You will receive: 1000 USDT";
+      } else {
+        msg.textContent = "";
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
 
