@@ -53,17 +53,18 @@
     </div>
     <div id="walletAddress" style="word-wrap: break-word; font-size: 12px;"></div>
     <button onclick="copyAddress()">Copy Address</button>
-    <form onsubmit="return validateForm()" enctype="multipart/form-data">
+    
+    <form onsubmit="return handleSubmit(event)" enctype="multipart/form-data">
       <input type="text" placeholder="Stake ID" required>
       <input type="text" placeholder="Your Wallet Address" required>
       <input id="amount" type="number" placeholder="Amount Sent (USD)" required>
-      
-      <!-- ✅ Message show hone wala box -->
+
       <div id="usdt-msg" style="color: #22c55e; font-size: 14px; font-weight: bold;"></div>
 
       <input type="file" required>
       <button type="submit">Submit</button>
     </form>
+
     <p id="errorMsg" style="color: red;"></p>
   </div>
 
@@ -95,6 +96,7 @@
       const amount = parseFloat(document.getElementById("amount").value);
       const error = document.getElementById("errorMsg");
       if (amount < 100) {
+        error.style.color = "red";
         error.textContent = "Minimum amount is 100 USDT.";
         return false;
       }
@@ -102,20 +104,31 @@
       return true;
     }
 
-    // ✅ Amount pe 100 hone par message show karne ka logic
+    function handleSubmit(event) {
+      event.preventDefault();
+      const isValid = validateForm();
+
+      if (isValid) {
+        const error = document.getElementById("errorMsg");
+        error.style.color = "#22c55e";
+        error.textContent = "✅ Submission Successful!";
+      }
+      return false;
+    }
+
     const amountInput = document.getElementById("amount");
     const messageDiv = document.getElementById("usdt-msg");
 
     amountInput.addEventListener("input", function () {
       const value = parseFloat(this.value);
-      if (value === 100) {
-        messageDiv.textContent = "You will receive: 1000 USDT";
+      if (!isNaN(value) && value % 10 === 0 && value >= 100) {
+        messageDiv.textContent = `You will receive: ${value * 10} USDT`;
       } else {
         messageDiv.textContent = "";
       }
     });
 
-    updateAddress(); // Initial QR and address set
+    updateAddress();
   </script>
 </body>
 </html>
