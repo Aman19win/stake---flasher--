@@ -7,115 +7,81 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #0f172a;
+      background-color: #0c1121;
       color: white;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      margin: 0;
+      align-items: center;
+      height: 100vh;
     }
-    .container {
-      background-color: #1e293b;
+    form {
+      background-color: #1e2a47;
       padding: 20px;
-      border-radius: 8px;
+      border-radius: 10px;
       width: 300px;
-      text-align: center;
     }
     input, select, button {
-      margin: 8px 0;
-      padding: 10px;
       width: 100%;
-      border-radius: 4px;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
       border: none;
     }
     button {
-      background-color: #22c55e;
+      background-color: #28a745;
       color: white;
       font-weight: bold;
+      cursor: pointer;
     }
-    .qr {
-      margin: 10px 0;
+    #receiveMsg {
+      color: #00ff7f;
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Stake Flasher</h2>
-    <label for="crypto">Select Cryptocurrency</label>
-    <select id="crypto" onchange="updateAddress()">
-      <option value="usdt">USDT (BEP-20)</option>
-      <option value="btc">BTC</option>
-    </select>
-    <div class="qr">
-      <img id="qrCode" src="" alt="QR Code" width="150"/>
-    </div>
-    <div id="walletAddress" style="word-wrap: break-word; font-size: 12px;"></div>
-    <button onclick="copyAddress()">Copy Address</button>
-    <form onsubmit="return validateForm()" enctype="multipart/form-data">
-      <input type="text" placeholder="Stake ID" required>
-      <input type="text" placeholder="Your Wallet Address" required>
-      <input id="amount" type="number" placeholder="Amount Sent (USD)" required>
-      
-      <!-- ✅ Message show hone wala box -->
-      <div id="usdt-msg" style="color: #22c55e; font-size: 14px; font-weight: bold;"></div>
 
-      <input type="file" required>
-      <button type="submit">Submit</button>
-    </form>
-    <p id="errorMsg" style="color: red;"></p>
-  </div>
+  <form id="paymentForm">
+    <h2 style="text-align: center;">Stake Flasher</h2>
+
+    <label for="name">Name:</label>
+    <input id="name" type="text" placeholder="Your Name" required>
+
+    <label for="username">Username:</label>
+    <input id="username" type="text" placeholder="Your Username" required>
+
+    <label for="amount">Amount Sent (USD):</label>
+    <input id="amount" type="number" placeholder="Enter Amount" required>
+
+    <p id="receiveMsg"></p>
+
+    <label for="file">Upload Screenshot:</label>
+    <input id="file" type="file" required>
+
+    <button type="submit">Submit</button>
+  </form>
 
   <script>
-    const addresses = {
-      usdt: {
-        address: "0x24f551eae922e4a72b05f678626e86ee241461a0",
-        qr: "https://api.qrserver.com/v1/create-qr-code/?data=0x24f551eae922e4a72b05f678626e86ee241461a0&size=150x150"
-      },
-      btc: {
-        address: "bc1qphwj6mqvux0ur3ygmjaxh9cw42wnlv9yexxcky",
-        qr: "https://api.qrserver.com/v1/create-qr-code/?data=bc1qphwj6mqvux0ur3ygmjaxh9cw42wnlv9yexxcky&size=150x150"
-      }
-    };
-
-    function updateAddress() {
-      const type = document.getElementById("crypto").value;
-      document.getElementById("walletAddress").innerText = addresses[type].address;
-      document.getElementById("qrCode").src = addresses[type].qr;
-    }
-
-    function copyAddress() {
-      const type = document.getElementById("crypto").value;
-      navigator.clipboard.writeText(addresses[type].address);
-      alert("Address copied!");
-    }
-
-    function validateForm() {
-      const amount = parseFloat(document.getElementById("amount").value);
-      const error = document.getElementById("errorMsg");
-      if (amount < 100) {
-        error.textContent = "Minimum amount is 100 USDT.";
-        return false;
-      }
-      error.textContent = "";
-      return true;
-    }
-
-    // ✅ Amount pe 100 hone par message show karne ka logic
     const amountInput = document.getElementById("amount");
-    const messageDiv = document.getElementById("usdt-msg");
+    const receiveMsg = document.getElementById("receiveMsg");
 
-    amountInput.addEventListener("input", function () {
-      const value = parseFloat(this.value);
-      if (value === 100) {
-        messageDiv.textContent = "You will receive: 1000 USDT";
+    amountInput.addEventListener("input", () => {
+      const amount = parseFloat(amountInput.value);
+      if (!isNaN(amount) && amount >= 100) {
+        receiveMsg.textContent = `You will receive: ${amount * 10} USDT`;
       } else {
-        messageDiv.textContent = "";
+        receiveMsg.textContent = "";
       }
     });
 
-    updateAddress(); // Initial QR and address set
+    document.getElementById("paymentForm").addEventListener("submit", function (e) {
+      // Optional: Add custom validation or submission logic here
+      e.preventDefault();
+      alert("Form submitted!");
+    });
   </script>
+
 </body>
 </html>
