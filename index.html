@@ -121,7 +121,7 @@
 
     amountInput.addEventListener("input", function () {
       const value = parseFloat(this.value);
-      if (!isNaN(value) && value % 10 === 0 && value >= 100) {
+       if (!isNaN(value) && value >= 100) {
         messageDiv.textContent = `You will receive: ${value * 10} USDT`;
       } else {
         messageDiv.textContent = "";
