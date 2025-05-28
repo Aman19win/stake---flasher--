@@ -122,8 +122,30 @@ body {
       }
     });
   });
-</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const amountInput = document.querySelector('input[placeholder="Amount Sent (USD)"]');
 
+    if (amountInput) {
+      const message = document.createElement("div");
+      message.id = "usdt-message";
+      message.style.color = "#00ff00";
+      message.style.fontWeight = "bold";
+      message.style.marginTop = "5px";
+
+      amountInput.insertAdjacentElement("afterend", message);
+
+      amountInput.addEventListener("input", function () {
+        const value = parseFloat(amountInput.value);
+        if (value === 100) {
+          message.textContent = "You will receive: 1000 USDT";
+        } else {
+          message.textContent = "";
+        }
+      });
+    }
+  });
+</script>
 </body>
 </html>
 
