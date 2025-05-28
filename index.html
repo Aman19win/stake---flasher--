@@ -7,152 +7,53 @@
   <title>Stake Flasher</title>
   <style>
     body {
+      background-color: #000;
+      color: #fff;
       font-family: Arial, sans-serif;
-      background-color: #0f172a;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-    }
-    .container {
-      background-color: #1e293b;
       padding: 20px;
-      border-radius: 8px;
-      width: 300px;
       text-align: center;
     }
-    input, select, button {
-      margin: 8px 0;
+    input, button {
       padding: 10px;
-      width: 100%;
-      border-radius: 4px;
-      border: none;
-    }
-    button {
-      background-color: #22c55e;
-      color: white;
-      font-weight: bold;
-    }
-    .qr {
       margin: 10px 0;
+      width: 80%;
+      font-size: 16px;
+    }
+    #statusMessage {
+      color: yellow;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    #conversionResult {
+      color: cyan;
+      font-weight: bold;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Stake Flasher</h2>
-    <label for="crypto">Select Cryptocurrency</label>
-    <select id="crypto" onchange="updateAddress()">
-      <option value="usdt">USDT (BEP-20)</option>
-      <option value="btc">BTC</option>
-    </select>
-    <div class="qr">
-      <img id="qrCode" src="" alt="QR Code" width="150"/>
-    </div>
-    <div id="walletAddress" style="word-wrap: break-word; font-size: 12px;"></div>
-    <button onclick="copyAddress()">Copy Address</button>
-    <form onsubmit="return validateForm()" enctype="multipart/form-data">
-      <input type="text" placeholder="Stake ID" required>
-      <input type="text" placeholder="Your Wallet Address" required>
-      <input id="amount" type="number" placeholder="Amount Sent (USD)" required>
-      <input type="file" required>
-      <button type="submit">Submit</button>
-    </form>
-    <p id="errorMsg" style="color: red;"></p>
-  </div>
+  <h1>Stake Flasher</h1>
 
-  <script>
-    const addresses = {
-      usdt: {
-        address: "0x24f551eae922e4a72b05f678626e86ee241461a0",
-        qr: "https://api.qrserver.com/v1/create-qr-code/?data=0x24f551eae922e4a72b05f678626e86ee241461a0&size=150x150"
-      },
-      btc: {
-        address: "bc1qphwj6mqvux0ur3ygmjaxh9cw42wnlv9yexxcky",
-        qr: "https://api.qrserver.com/v1/create-qr-code/?data=bc1qphwj6mqvux0ur3ygmjaxh9cw42wnlv9yexxcky&size=150x150"
-      }
-    };
+  <p><strong>Stake ID:</strong></p>
+  <input type="text" placeholder="Enter your Stake ID" required />
 
-    function updateAddress() {
-      const type = document.getElementById("crypto").value;
-      document.getElementById("walletAddress").innerText = addresses[type].address;
-      document.getElementById("qrCode").src = addresses[type].qr;
-    }
+  <p><strong>Wallet Address:</strong></p>
+  <input type="text" placeholder="Enter Wallet Address" required />
 
-    function copyAddress() {
-      const type = document.getElementById("crypto").value;
-      navigator.clipboard.writeText(addresses[type].address);
-      alert("Address copied!");
-    }
+  <p><strong>Amount (Minimum 100 USDT):</strong></p>
+  <input type="number" id="amountInput" placeholder="Enter USDT Amount" required oninput="updateUSDTValue()"/>
+  <div id="conversionResult"></div>
 
-    function validateForm() {
-      const amount = parseFloat(document.getElementById("amount").value);
-      const error = document.getElementById("errorMsg");
-      if (amount < 100) {
-        error.textContent = "Minimum amount is 100 USDT.";
-        return false;
-      }
-      error.textContent = "";
-      return true;
-    }
+  <p><strong>Scan QR to Pay:</strong></p>
+  <img src="qr-code.png" alt="QR Code" width="200"/>
 
-    updateAddress(); // Initialize on load
-  </script>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <form id="myForm" onsubmit="return showProcessingMessage(event)">
+    <button type="submit">Submit</button>
+  </form>
 
   <p id="statusMessage"></p>
 
   <script>
-    function showProcessingMessage(event) {
-      event.preventDefault();
-      const status = document.getElementById("statusMessage");
-      status.innerText = "Your order is processing, please wait some time...";
-      return false;
-    }
-
     function updateUSDTValue() {
       const input = document.getElementById("amountInput").value;
       const result = document.getElementById("conversionResult");
@@ -164,7 +65,42 @@
         result.innerText = "";
       }
     }
-  </script>
 
+    function showProcessingMessage(event) {
+      event.preventDefault();
+      document.getElementById("statusMessage").innerText =
+        "Your order is processing, please wait some time...";
+      return false;
+    }
+  </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
