@@ -1,0 +1,53 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0d1117;
+    color: white;
+}
+header {
+    padding: 20px;
+    background: #161b22;
+    text-align: center;
+}
+.telegram-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #2ea44f;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+main {
+    padding: 20px;
+}
+.flasher-box {
+    background: #161b22;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+.flasher-box input, .flasher-box select, .flasher-box button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+}
+.submit-btn {
+    background: #2ea44f;
+    color: white;
+    font-weight: bold;
+}
+.info {
+    background: #21262d;
+    padding: 20px;
+    border-radius: 8px;
+}
+footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    color: gray;
+}
